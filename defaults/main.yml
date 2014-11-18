@@ -1,6 +1,7 @@
 ---
 # defaults file for mandrill-relay
 mandrill_relay_server: smtp.mandrillapp.com
+mandrill_relay_port: 587
 mandrill_relay_if: loopback-only
 mandrill_relay_myorigin: $mydomain
 mandrill_relay_mynetworks : 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128

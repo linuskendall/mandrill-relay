@@ -64,10 +64,9 @@
     - mandrill
 
 - name: install sasl credentials  
-  lineinfile: dest=/etc/postfix/sasl_passwd regexp="^[{{mandrill_relay_server}}]" line="[{{mandrill_relay_server}}]:587 {{mandrill_relay_username}}:{{mandrill_relay_apikey}}" state=present
+  lineinfile: dest=/etc/postfix/sasl_passwd regexp="^[{{mandrill_relay_server}}]" line="[{{mandrill_relay_server}}]:{{mandrill_relay_port}} {{mandrill_relay_username}}:{{mandrill_relay_apikey}}" state=present
   notify: postmap sasl credentials
   tags:
     - email
     - postfix
     - mandrill
-

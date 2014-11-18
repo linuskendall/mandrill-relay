@@ -24,7 +24,7 @@ myhostname = {{mandrill_relay_hostname}}
 myorigin = {{mandrill_relay_myorigin}}
 mynetworks = {{mandrill_relay_mynetworks}}
 inet_interfaces = {{mandrill_relay_if}}
-relayhost = [{{mandrill_relay_server}}]:587
+relayhost = [{{mandrill_relay_server}}]:{{mandrill_relay_port}}
 
 # Aliases to use (not really required since we're not receiving email)
 alias_maps = hash:/etc/aliases
