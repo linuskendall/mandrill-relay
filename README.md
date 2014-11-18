@@ -8,12 +8,14 @@ Requirements
 
 Requires an active mandrill account and should have an API key ready. Additionally for proper deliverability SPF and DKIM records should be setup correctly for the mandrill service on the domain used.
 
+Tested on CentOS 6, Ubuntu 14.04 and Debian 7. 
+
 Role Variables
 --------------
 
 Required:
 - mandrill\_relay\_username = The username to use for mandrill relaying
-- mandrill\_relay\_apikey = The api key to use when relaying email for Mandrill.
+- mandrill\_relay\_apikey = The api key to use when relaying email for Mandrill (ideally use Ansible Vault).
 
 Optional: 
 - mandrill\_relay\_hostname = The hostname of this machine
@@ -24,9 +26,6 @@ Optional:
 - mandrill\_relay\_server = The server that is used from Mandrill app (smtp.mandrillapp.com is the default)
 - mandrill\_relay\_tls\_key = Keyfile (defaults to snakeoil)
 - mandrill\_relay\_tls\_cert = Certfile (defaults to snakeoil)
-
-Dependencies
-------------
 
 Example Playbook
 ----------------
