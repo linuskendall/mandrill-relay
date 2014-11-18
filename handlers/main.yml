@@ -1,0 +1,12 @@
+---
+# handlers file for mandrill-relay
+- name: restart postfix
+  service: name=postfix state=restarted
+  
+- name: reload postfix
+  service: name=postfix state=reloaded
+
+
+- name: postmap sasl credentials
+  command: postmap /etc/postfix/sasl_passwd  
+  notify: reload postfix

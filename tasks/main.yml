@@ -1,0 +1,73 @@
+---
+# tasks file for mandrill-relay
+
+- name: ensure postfix is installed
+  yum: pkg="{{item}}" state=present
+  when: ansible_os_family == "CentOS"
+  with_items:
+    - postfix
+    - cyrus-sasl-plain
+  notify: restart postfix
+  tags: 
+    - email
+    - postfix
+    - mandrill
+
+- name: ensure postfix is installed
+  apt: pkg="{{item}}" state=present
+  when: ansible_os_family == "Debian"
+  with_items:
+    - postfix
+    - libsasl2-modules
+  notify: restart postfix
+  tags: 
+    - email
+    - postfix
+    - mandrill
+
+- name: ensure sendmail is removed
+  yum: pkg=sendmail state=absent
+  when: ansible_os_family == "CentOS"
+  tags: 
+    - email
+    - postfix
+    - mandrill
+
+- name: ensure ca-certificates are installed
+  yum: pkg=ca-certificates state=present
+  when: ansible_os_family == "CentOS"
+  tags: 
+    - email
+    - postfix
+    - mandrill
+
+- name: enable postfix mail service
+  service: name=postfix state=running enabled=true
+  tags: 
+    - email
+    - postfix
+    - mandrill
+
+- name: install postfix configuration file
+  template: src=main.cf.j2 dest=/etc/postfix/main.cf
+  notify: reload postfix  
+  tags: 
+    - email
+    - postfix
+    - mandrill
+
+- name: ensure sasl password file is present
+  file: path=/etc/postfix/sasl_passwd state=touch mode=0600 owner=root group=root
+  tags:
+    - email
+    - postfix
+    - mandrill
+
+- name: install sasl credentials  
+  lineinfile: dest=/etc/postfix/sasl_passwd regexp="^[{{mandrill_relay_server}}]" line="[{{mandrill_relay_server}}]:587 {{mandrill_relay_username}}:{{mandrill_relay_apikey}}" state=present
+  notify: postmap sasl credentials
+  tags:
+    - email
+    - postfix
+    - mandrill
+

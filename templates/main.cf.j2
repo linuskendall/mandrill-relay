@@ -1,0 +1,37 @@
+# General settings
+smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+biff = no
+append_dot_mydomain = no
+readme_directory = no
+
+# Server TLS authentication (not strictly required since we're only handling email from localhost)
+smtpd_tls_cert_file={{mandrill_relay_tls_cert}}
+smtpd_tls_key_file={{mandrill_relay_tls_key}}
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+
+# Client TLS authentication
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd 
+smtp_sasl_security_options = noanonymous
+smtp_use_tls = yes 
+smtp_tls_CApath = /etc/ssl/certs/
+
+# Deliverability settings
+myhostname = {{mandrill_relay_hostname}}
+myorigin = {{mandrill_relay_myorigin}}
+mynetworks = {{mandrill_relay_mynetworks}}
+inet_interfaces = {{mandrill_relay_if}}
+relayhost = [{{mandrill_relay_server}}]:587
+
+# Aliases to use (not really required since we're not receiving email)
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+recipient_delimiter = +
+
+# Any destinations we're receiving mail for and mailbox format for those users
+mydestination = {{mandrill_relay_mydestination}}
+mailbox_size_limit = 0
+home_mailbox = Maildir/
