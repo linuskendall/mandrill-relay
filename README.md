@@ -24,6 +24,7 @@ Optional:
 - mandrill\_relay\_mydestinations = Networks that we deliver mail for locally (leave blank for a nullmailer)
 - mandrill\_relay\_if = The interface to listen for incoming mails on (default: loopback-only)
 - mandrill\_relay\_server = The server that is used from Mandrill app (smtp.mandrillapp.com is the default)
+- mandrill\_relay\_port = The port that is used from Mandrill app (587 is the default)
 - mandrill\_relay\_tls\_key = Keyfile (defaults to snakeoil)
 - mandrill\_relay\_tls\_cert = Certfile (defaults to snakeoil)
 
