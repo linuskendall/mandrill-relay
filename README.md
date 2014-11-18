@@ -1,7 +1,7 @@
 Mandrill Relay
 =========
 
-Uses postfix to relay all email on the host through Mandrill. Essentially creates a 
+Uses postfix to relay all email on the host through Mandrill. Can be used to create a quick and secure nullmailer or a local mail system with local deliverability but which forwards outgoing e-mail via Mandrill.
 
 Requirements
 ------------
